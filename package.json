@@ -1,0 +1,23 @@
+{
+  "name": "whee",
+  "version": "1.0.0",
+  "description": "A fun little experiment in CLS and web frameworks.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter=spec"
+  },
+  "author": "Bryan English <bryan@bryanenglish.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body": "^4.5.0",
+    "continuation-local-storage": "^3.0.0",
+    "redirecter": "^0.2.3",
+    "routes": "^1.1.0",
+    "send-data": "^3.2.4",
+    "filed": "~0.1.0"
+  },
+  "devDependencies": {
+    "mocha": "^1.21.4",
+    "request": "^2.40.0"
+  }
+}
