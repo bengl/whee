@@ -17,7 +17,7 @@ const app = w()
     w.sendHtml('<b>Hello</b>');
   })
   .get('/sendError', function () {
-    w.sendError(new Error('bad'));
+    w.sendError({ body: new Error('bad') });
   })
   .get('/test.js', function () {
     w.file(path.join(__dirname, 'test.js'));
@@ -90,7 +90,10 @@ describe('whee!!', function () {
 
   it('sendError', function (done) {
     request(root + 'sendError', function (_err, res, body) {
-      assert.deepEqual(JSON.parse(body), { errors: [{ message: 'bad', attribute: 'general' }] });
+      assert.deepEqual(JSON.parse(body), {
+        message: 'bad',
+        statusCode: 500
+      });
       assert.equal(res.statusCode, 500);
       done();
     });
