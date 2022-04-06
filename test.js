@@ -96,7 +96,7 @@ describe('whee!!', function(){
 
   it('file', function(done){
     request(root+'test.js', function(err, res, body){
-      assert.equal(res.headers['content-type'], 'application/javascript');
+      assert.equal(res.headers['content-type'], 'application/javascript; charset=UTF-8');
       assert.equal(require('fs').readFileSync(__dirname+'/test.js', 'utf8'), body);
       done();
     });
