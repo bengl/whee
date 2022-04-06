@@ -10,7 +10,6 @@
   "license": "MIT",
   "dependencies": {
     "body": "^5.1.0",
-    "continuation-local-storage": "^3.0.0",
     "methods": "^1.1.2",
     "redirecter": "^0.2.3",
     "routes": "^2.1.0",

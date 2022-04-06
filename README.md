@@ -77,9 +77,9 @@ There's also some basic redirect and static file stuff built in, but I'm a lazy 
 
 ## Magic Revealed
 
-This magic comes from hiding the necessary bits (like your `req` and `res` objects that you're used to) away in [continuation local storage](https://www.npmjs.org/package/continuation-local-storage). Go read up on it. You'll love it! Also, it explains this stuff way better than I do. 
+This magic comes from hiding the necessary bits (like your `req` and `res` objects that you're used to) away in [`AsyncLocalStorage`](https://nodejs.org/api/async_context.html#class-asynclocalstorage). Go read up on it. You'll love it! Also, it explains this stuff way better than I do.
 
-Basically it lets you keep a context around for as long as your continuation chain lasts. For our purposes, that means the length of an HTTP request and response cycle. This is great news because we can hide stuff away in there!
+Basically it lets you keep a context around for as long as your asynchronous causation chain lasts. For our purposes, that means the length of an HTTP request and response cycle. This is great news because we can hide stuff away in there!
 
 Don't worry, `req` and `res` aren't gone forever. There's accessible at `w.req` and `w.res`, so long as you're inside a handler.
 
@@ -87,21 +87,18 @@ If you want to hide your own stuff in there, you've got a few options:
 
 #### The Direct Way
 
-Grab the `whee` namespace from `cls` and interact with it directly:
+Use Whee's `AsyncLocalStorage` instance directly:
 
 ```javascript
-var ns = require('continuation-local-storage')
-         .getNamespace('whee');
+var w = require('whee');
 
-// then, somewhere in a request handler ...
-ns.set('mysessionthing', {some: 'thing'});
+// somewhere in a request handler ...
+w.storage.getStore().mysessionthing = {some: 'thing'});
 
-// ....
+// somewhere in some other code triggered by the handler
 
-var session = ns.get('mysessionthing');
+var session = w.storage.getStore().mysessionthing;
 ```
-
-You can also use your own namespace.
 
 #### The Magic Way
 
