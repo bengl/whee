@@ -4,7 +4,7 @@
   "description": "A fun little experiment in CLS and web frameworks.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --reporter=spec"
+    "test": "semistandard && mocha"
   },
   "author": "Bryan English <bryan@bryanenglish.com>",
   "license": "MIT",
@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "mocha": "^9.2.2",
-    "request": "^2.40.0"
+    "request": "^2.40.0",
+    "semistandard": "^16.0.1"
   }
 }
