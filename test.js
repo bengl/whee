@@ -30,15 +30,24 @@ const app = w()
       w.send(body);
     });
   })
+  .post('/textBodyAsync', async () => {
+    w.send(await w.textBody());
+  })
   .post('/jsonBody', () => {
     w.jsonBody(() => {
       w.sendJson(w.body);
     });
   })
+  .post('/jsonBodyAsync', async () => {
+    w.sendJson(await w.jsonBody());
+  })
   .post('/formBody', () => {
     w.formBody(() => {
       w.sendJson(w.body);
     });
+  })
+  .post('/formBodyAsync', async () => {
+    w.sendJson(await w.formBody());
   })
   .put('/puttest', () => {
     w.send(w.req.method);
@@ -122,6 +131,13 @@ describe('whee!!', () => {
     });
   });
 
+  it('textBodyAsync', done => {
+    request.post({ url: root + 'textBodyAsync', body: 'hello' }, (_err, res, body) => {
+      assert.equal(body, 'hello');
+      done();
+    });
+  });
+
   it('jsonBody', done => {
     request.post({ url: root + 'jsonBody', json: { hello: 'hello' } }, (_err, res, body) => {
       assert.deepEqual(body, { hello: 'hello' });
@@ -130,8 +146,24 @@ describe('whee!!', () => {
     });
   });
 
+  it('jsonBodyAsync', done => {
+    request.post({ url: root + 'jsonBodyAsync', json: { hello: 'hello' } }, (_err, res, body) => {
+      assert.deepEqual(body, { hello: 'hello' });
+      assert.equal(res.headers['content-type'], 'application/json');
+      done();
+    });
+  });
+
   it('formBody', done => {
     request.post({ url: root + 'formBody', form: { hello: 'hello' } }, (_err, res, body) => {
+      assert.deepEqual(JSON.parse(body), { hello: 'hello' });
+      assert.equal(res.headers['content-type'], 'application/json');
+      done();
+    });
+  });
+
+  it('formBodyAsync', done => {
+    request.post({ url: root + 'formBodyAsync', form: { hello: 'hello' } }, (_err, res, body) => {
       assert.deepEqual(JSON.parse(body), { hello: 'hello' });
       assert.equal(res.headers['content-type'], 'application/json');
       done();
