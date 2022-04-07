@@ -10,9 +10,10 @@
   "license": "MIT",
   "dependencies": {
     "body": "^5.1.0",
+    "finalhandler": "^1.2.0",
     "methods": "^1.1.2",
     "redirecter": "^0.2.3",
-    "routes": "^2.1.0",
+    "router": "^1.3.6",
     "send": "^0.18.0",
     "send-data": "^8.0.0"
   },
