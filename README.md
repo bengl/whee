@@ -33,7 +33,7 @@ You can also do all your other favorite HTTP verbs, like `post`, `put` and `dele
 The `w` object is also your `this` object, so you can call it that way, which is sometimes handy. Especially for CoffeeScript people.
 
 ```javascript
-//JavaScript
+// JavaScript
 
 w()
 .get('/', function() {
@@ -43,7 +43,7 @@ w()
 ```
 
 ```coffeescript
-//CoffeeScript
+# CoffeeScript
 
 w()
 .get '/', -> @send 'Hello, World!'
@@ -60,7 +60,7 @@ w()
 .listen(3000)
 ```
 
-You have access to `textBody', `jsonBody`, `formBody` and `anyBody` on the `w` object, which are all pass-throughs to [body](https://www.npmjs.org/package/body). Instead of being passed in to the callback, the parsed body is then attached at `w.body`.
+You have access to `textBody', `jsonBody`, `formBody` and `anyBody` on the `w` object, which are all pass-throughs to [body](https://www.npmjs.org/package/body). Instead of being passed in to the callback, the parsed body is then attached at `w.body`. 
 
 ```javascript
 w()
@@ -68,6 +68,10 @@ w()
   w.jsonBody(function(err){
     w.sendJson(w.body)
   })
+})
+.post('/jsonEchoAsync', async function(){
+  await w.jsonBody()
+  w.sendJson(w.body)
 })
 ```
 
@@ -107,9 +111,7 @@ This sets up accessors on the `w` object:
 ```javascript
 var w = require('whee');
 
-w.addMagicGetter('mysessionthing');
-
-// then, somewhere in a request handler ...
+// somewhere in a request handler ...
 w.setMagicValue('mysessionthing', {some: 'thing'});
 
 // ....
